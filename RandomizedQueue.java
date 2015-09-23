@@ -115,6 +115,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         @Override
         public Item next() {
+            if ((counter > sizeOfQueue) || (isEmpty())) {throw new NoSuchElementException();}
             if (counter == 0) {
                 createOrderArray();
             }
