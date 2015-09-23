@@ -86,6 +86,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return result;
     }                // remove and return the item from the end
 
+    public Item sample () {
+        if (isEmpty()) throw new java.util.NoSuchElementException();
+        int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
+        Node nodeToRemove = nodeNumber(numberOfNodeToRemove);
+        Item result = nodeToRemove.item;
+        return result;
+    }
+
+
     public Iterator<Item> iterator() {
         return new ListIterator();
     }
