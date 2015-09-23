@@ -12,15 +12,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private int sizeOfQueue;
 
     private class Node {
-        Item item;
-        Node next;
-        Node previous;
+        private Item item;
+        private Node next;
+        private Node previous;
     }
 
     public RandomizedQueue() {
         first = null;
         last = null;
-        int sizeOfQueue = 0;
+        sizeOfQueue = 0;
     }                         // construct an empty deque
 
     public int size() {
@@ -86,7 +86,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return result;
     }                // remove and return the item from the end
 
-    public Item sample () {
+    public Item sample() {
         if (isEmpty()) throw new java.util.NoSuchElementException();
         int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
         Node nodeToRemove = nodeNumber(numberOfNodeToRemove);
@@ -106,7 +106,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         private int[] createOrderArray() {
             iterationOrder = new int[sizeOfQueue];
-            for (int i = 0; i < sizeOfQueue; i ++) {
+            for (int i = 0; i < sizeOfQueue; i++) {
                 iterationOrder[i] = i;
             }
             StdRandom.shuffle(iterationOrder);

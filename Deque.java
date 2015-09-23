@@ -1,4 +1,4 @@
-import jdk.internal.dynalink.NoSuchDynamicMethodException;
+
 
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -13,9 +13,9 @@ public class Deque<Item> implements Iterable<Item> {
     private int counter;
 
     private class Node {
-        Item item;
-        Node next;
-        Node previous;
+        private Item item;
+        private Node next;
+        private Node previous;
     }
 
     public Deque() {
@@ -26,13 +26,13 @@ public class Deque<Item> implements Iterable<Item> {
 
     public int size() {
         if (isEmpty()) return 0;
-        int counter = 1;
+        int sizeCounter = 1;
         Node currentNode = first;
         while (!(currentNode.next == null)) {
-            counter++;
+            sizeCounter++;
             currentNode = currentNode.next;
         }
-        return counter;
+        return sizeCounter;
     }                        // return the number of items on the deque
 
     public boolean isEmpty() {
@@ -100,7 +100,7 @@ public class Deque<Item> implements Iterable<Item> {
             first = null;
             last = null;
         }
-        counter --;
+        counter--;
         return result;
     }                // remove and return the item from the end
 
