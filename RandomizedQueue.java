@@ -8,7 +8,7 @@ import edu.princeton.cs.algs4.StdRandom;
  */
 public class RandomizedQueue<Item> implements Iterable<Item> {
     private Item[] array;
-    int sizeOfStack;
+    private int sizeOfStack;
 
     public RandomizedQueue() {
         array = (Item[])new Object[1];
@@ -19,15 +19,15 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return sizeOfStack == 0;
     }
 
-    public int arraySize() {
+    private int arraySize() {
         return array.length;
     }
 
-    public int getSizeOfStack() {
+    public int size() {
         return sizeOfStack;
     }
 
-    public Item itemNumber(int number) {
+    private Item itemNumber(int number) {
         return array[number];
     }
 
