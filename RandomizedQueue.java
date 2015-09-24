@@ -121,6 +121,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         @Override
         public Item next() {
+            // Public iteration method
+            // returns next item in iteration
             if (isEmpty() || counter == sizeOfStack) throw new NoSuchElementException(); // Stack is empty or reached
                                                                                          // the end during iteration
 
@@ -133,6 +135,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         @Override
         public boolean hasNext() {
+            // public iteration method, returns whether iteration has next element
             // if didnt reach end of array -> hasNext() = true
             return counter < sizeOfStack;
         }
