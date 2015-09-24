@@ -32,7 +32,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return sizeOfQueue == 0;
     }
 
-    private Node nodeNumber(int number) {
+    private Node nodeWithNumber(int number) {
         Node currentNode = first;
         int counter = 0;
         while (counter < number) {
@@ -60,19 +60,28 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
         // remove and return the item from the front
 
+    private Node randomNode() {
+        int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
+        return nodeWithNumber(numberOfNodeToRemove);
+    }
+
     public Item dequeue() {
         if (isEmpty()) throw new java.util.NoSuchElementException();
-        int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
-        Node nodeToRemove = nodeNumber(numberOfNodeToRemove);
+
+        Node nodeToRemove = randomNode();
+
         Item result = nodeToRemove.item;
         if ((nodeToRemove.next == null) && (nodeToRemove.previous == null)) {
+            // only one element exists
             first = null;
             last = null;
         } else if (nodeToRemove.next == null) {
+            // last element in queue
             Node newLast = last.previous;
             newLast.next = null;
             last = newLast;
         } else if (nodeToRemove.previous == null) {
+            // first element in queue
             Node newFirst = first.next;
             newFirst.previous = null;
             first = newFirst;
@@ -89,9 +98,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public Item sample() {
         if (isEmpty()) throw new java.util.NoSuchElementException();
-        int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
-        Node nodeToRemove = nodeNumber(numberOfNodeToRemove);
-        return nodeToRemove.item;
+        Node randomNode = randomNode();
+        return randomNode.item;
     }
 
 
