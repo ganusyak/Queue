@@ -11,7 +11,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private int sizeOfStack;
 
     public RandomizedQueue() {
-        array = (Item[])new Object[1];
+        array = (Item[]) new Object[1];
         sizeOfStack = 0;
     }
 
@@ -33,7 +33,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     private void resizeArrayTo(int size) {
         Item[] newArray = (Item[]) new Object[size];
-        for (int i = 0; i < sizeOfStack; i++){
+        for (int i = 0; i < sizeOfStack; i++) {
             newArray[i] = array[i];
         }
         array = newArray;
@@ -76,7 +76,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private class ListIterator implements Iterator<Item> {
         //private Node currentItem = first;
         //private int[] iterationOrder;
-        private Item [] itemArray;
+        //private Item [] itemArray;
         private int counter = 0;
 
 
