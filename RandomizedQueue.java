@@ -81,17 +81,22 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private class ListIterator implements Iterator<Item> {
-        //private Node currentItem = first;
-        //private int[] iterationOrder;
-        private Item [] itemArray;
+
+        private int [] indexArray;
         private int counter = 0;
 
+        public ListIterator() {
+            createShuffledArray();
+        }
+
+
         private void createShuffledArray() {
-            itemArray = (Item[]) new Object[sizeOfStack];
+
+            indexArray = new int[sizeOfStack];
             for (int i = 0; i < sizeOfStack; i++) {
-                itemArray[i] = array[i];
+                indexArray[i] = i;
             }
-            StdRandom.shuffle(itemArray);
+            StdRandom.shuffle(indexArray);
         }
 
         @Override
@@ -99,12 +104,12 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             if (isEmpty() || counter == sizeOfStack) {
                 throw new NoSuchElementException();
             }
-            if (counter == 0) { createShuffledArray(); }
-            Item result = itemArray[counter];
+
+            Item result = array[indexArray[counter]];
 
             counter++;
             if (counter == sizeOfStack) {
-                itemArray = null;
+                //indexArray = null;
             }
             return result;
 
