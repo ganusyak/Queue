@@ -25,14 +25,7 @@ public class Deque<Item> implements Iterable<Item> {
     }                         // construct an empty deque
 
     public int size() {
-        if (isEmpty()) return 0;
-        int sizeCounter = 1;
-        Node currentNode = first;
-        while (!(currentNode.next == null)) {
-            sizeCounter++;
-            currentNode = currentNode.next;
-        }
-        return sizeCounter;
+        return counter;
     }                        // return the number of items on the deque
 
     public boolean isEmpty() {
