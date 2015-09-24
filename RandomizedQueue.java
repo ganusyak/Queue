@@ -40,6 +40,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         newArray = null;
     }
     public void enqueue(Item item) {
+        if (item == null) throw new java.lang.NullPointerException();
         if (sizeOfStack == array.length) {
             resizeArrayTo(array.length * 2);
         }
