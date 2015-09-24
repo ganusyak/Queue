@@ -50,22 +50,29 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
 
     public Item dequeue() {
         if (sizeOfStack == 0) throw new java.util.NoSuchElementException();
+        if (sizeOfStack == 1) {
+            Item result = array[0];
+            array[0] = null;
+            sizeOfStack = 0;
+            return result;
+        }
         int randomIndex = StdRandom.uniform(0, sizeOfStack);
-
-        sizeOfStack--;
         Item result = array[randomIndex];
-        array[randomIndex] = array[sizeOfStack];
+        sizeOfStack--;
 
-        if (sizeOfStack <= (array.length / 4)) {
+        array[randomIndex] = array[sizeOfStack];
+        array[sizeOfStack] = null;
+        if ((sizeOfStack == (array.length / 4) && (array.length  > 1))) {
             resizeArrayTo(array.length / 2);
         }
 
-        array[sizeOfStack] = null;
+
         return result;
 
     }
 
     public Item sample() {
+        if (sizeOfStack == 0) throw new java.util.NoSuchElementException();
         int randomIndex = StdRandom.uniform(0, sizeOfStack);
         return array[randomIndex];
     }
@@ -76,22 +83,31 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private class ListIterator implements Iterator<Item> {
         //private Node currentItem = first;
         //private int[] iterationOrder;
-        //private Item [] itemArray;
+        private Item [] itemArray;
         private int counter = 0;
 
-
+        private void createShuffledArray() {
+            itemArray = (Item[]) new Object[sizeOfStack];
+            for (int i = 0; i < sizeOfStack; i++) {
+                itemArray[i] = array[i];
+            }
+            StdRandom.shuffle(itemArray);
+        }
 
         @Override
         public Item next() {
             if (isEmpty() || counter == sizeOfStack) {
                 throw new NoSuchElementException();
             }
-            if (counter == 0) { StdRandom.shuffle(array, 0, sizeOfStack - 1); };
-            Item result = array[counter];
+            if (counter == 0) { createShuffledArray(); }
+            Item result = itemArray[counter];
 
             counter++;
+            if (counter == sizeOfStack) {
+                itemArray = null;
+            }
             return result;
-            //return randomNode.item;
+
         }
 
         @Override
