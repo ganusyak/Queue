@@ -1,3 +1,4 @@
+
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import edu.princeton.cs.algs4.StdRandom;
@@ -90,8 +91,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         if (isEmpty()) throw new java.util.NoSuchElementException();
         int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
         Node nodeToRemove = nodeNumber(numberOfNodeToRemove);
-        Item result = nodeToRemove.item;
-        return result;
+        return nodeToRemove.item;
     }
 
 
@@ -100,35 +100,46 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     private class ListIterator implements Iterator<Item> {
-        private Node currentItem = first;
-        private int[] iterationOrder;
+        //private Node currentItem = first;
+        //private int[] iterationOrder;
+        private Item [] itemArray;
         private int counter = 0;
 
-        private int[] createOrderArray() {
-            iterationOrder = new int[sizeOfQueue];
+        private void createOrderArray() {
+            //iterationOrder = new int[sizeOfQueue];
+            itemArray = (Item[]) new Object[sizeOfQueue];
+            Node currentNode = first;
             for (int i = 0; i < sizeOfQueue; i++) {
-                iterationOrder[i] = i;
+                //iterationOrder[i] = i;
+
+                itemArray[i] = currentNode.item;
+                currentNode = currentNode.next;
             }
-            StdRandom.shuffle(iterationOrder);
-            return iterationOrder;
+            StdRandom.shuffle(itemArray);
+            //return iterationOrder;
         }
 
         @Override
         public Item next() {
-            if ((counter > sizeOfQueue) || (isEmpty())) {throw new NoSuchElementException();}
+            if ((counter == sizeOfQueue) || (isEmpty())) {
+                throw new NoSuchElementException();
+            }
             if (counter == 0) {
                 createOrderArray();
             }
 
             if (isEmpty()) throw new NoSuchElementException();
-            Node randomNode = nodeNumber(iterationOrder[counter]);
+            //Node randomNode = nodeNumber(iterationOrder[counter]);
+            Item result = itemArray[counter];
             counter++;
-            return randomNode.item;
+            if (counter == sizeOfQueue) itemArray = null;
+            return result;
+            //return randomNode.item;
         }
 
         @Override
         public boolean hasNext() {
-            return (counter < sizeOfQueue);
+            return ((counter < sizeOfQueue) && (!isEmpty()));
         }
 
         @Override
@@ -137,7 +148,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         }
 
     }
-
     // return an iterator over items in order from front to end
     public static void main(String[] args) {
     }    // unit testing
