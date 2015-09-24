@@ -11,6 +11,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     private Node first;
     private Node last;
     private int sizeOfQueue;
+    private int anotherInt;
 
     private class Node {
         private Item item;
@@ -19,6 +20,7 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
 
     public RandomizedQueue() {
+        // empty queue
         first = null;
         last = null;
         sizeOfQueue = 0;
@@ -42,8 +44,8 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
         return currentNode;
     }
 
-    public void enqueue(Item item) {
-        if (item == null) throw new java.lang.NullPointerException();
+    public void enqueue(Item item) {      // add new node to the end of queue
+        if (item == null) throw new java.lang.NullPointerException(); // if trying to add null Item
 
         Node newLast = new Node();
         newLast.item = item;
@@ -54,18 +56,19 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
             last.next = newLast;
         }
         last = newLast;
-        sizeOfQueue++;
 
-    }         // add the item to the end
+        sizeOfQueue++;                     // increment size of queue counter
 
-        // remove and return the item from the front
+    }
+
+
 
     private Node randomNode() {
         int numberOfNodeToRemove = StdRandom.uniform(0, sizeOfQueue);
         return nodeWithNumber(numberOfNodeToRemove);
     }
 
-    public Item dequeue() {
+    public Item dequeue() {              // remove and return the item from the front
         if (isEmpty()) throw new java.util.NoSuchElementException();
 
         Node nodeToRemove = randomNode();
@@ -158,5 +161,6 @@ public class RandomizedQueue<Item> implements Iterable<Item> {
     }
     // return an iterator over items in order from front to end
     public static void main(String[] args) {
+        // here will be unit testing
     }    // unit testing
 }
